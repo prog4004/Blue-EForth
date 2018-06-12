@@ -55,3 +55,8 @@ is case sensitive.
 16. to load a Forth source file to the BP, be at the PC and
 type 'loadf105 FileName (enter)' the source file should then
 load. Enjoy.
+
+I should note that it runs at 56K, even parity, 8 bits. The BP
+could run at 115K but the 8MHz RC clock is not always stable
+enough. I run EFORTH at the same rate so I don't need to
+re-initialize the serial connection.
