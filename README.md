@@ -12,4 +12,6 @@ I have not tried TURNKEY yet.
 Most terminal programs should work but one may need some changes to download source.
 I use a program that I wrote to boot load the FLASH, keyboard interface to EFORTH and source download Forth programs. It runs in Win32Forth, an open source Forth.
 
+TalkF105.f is win32forth code to FLASH the Blue Pill and as a terminal for EFORTH on the Blue Pill.
+TalkF105.TXT gives instructions to do FLASH the Blue Pill.
 
