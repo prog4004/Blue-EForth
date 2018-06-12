@@ -1,0 +1,57 @@
+
+TalkF105.f
+
+Source file that I load with Win32Forth on a PC. I use this
+program to bootstrap the EForth into the STM32 chip. It
+was originally written for the STM32F105 so you'll see
+F105 used in a lot of names. It works fine for the
+STM32F103 chip as well. This file was created for my own
+use and has a bunch of other things in it for my own use
+and debugging the loading and running of EForth. It is not very
+clean and only provided in case one doesn't have a method
+of loading the EForth.hex file. Please excuse the sloppy
+coding.
+If you wish to write you own loader, on another platform,
+please refer to the STM documentation, as I have.
+It communicates with the typical FTDI 5V/3.3V USB to serial.
+It could communicate with a normal serial as well but you'd
+need a level converter to 3.3V from RS232 levels.
+I connect 4 wires from the FTDI board to the Blue Pill (BP).
+GND to GND
+5V to 5V (I suspect one could do 3.3V to 3.3V instead)
+FTDI TX to pin A9 of the BP
+FTDI RX to pin A10 of the BP
+configure the FTDI for 3.3V output signals
+
+To download the EForth into the BP
+
+1. copy the *.hex file to EForth.hex (I use a fixed name here)
+2. set the boot0 jumper to 1 on the BP and boot1 to 0
+3. connect USB cable, FTDI and BP to the PC. 
+4. hit reset button on BP
+5. from pc, 'SS (enter)' 
+6. If you've configured the serial port correctly, the BP
+should return "Ack". If not check to see that you are
+actually communicating with the serial. My FTDI board has
+a LED indicator. There is some setup of the FTDI on the PC
+to connect a serial channel to the USB but it was so long
+ago, I've forgotten it all.
+7. from pc 'unProtRd (enter)' , it should reply "Ack"
+8. hit reset button on BP ( it shouldn't need this but for
+some reason some chips do need a hard reset.
+9. 'SS (enter)' again to get Ack
+10. from pc 'unProtWr (enter)', should get Ack
+11. hit reset switch, on BP again and 'SS' (enter)'
+12. from PC, '0 1 2 3 4 5 6 7 8 9 EM (enter)'
+you should get Acks. This erases the flash ready to load
+EForth. The F103 is 1K blocks. 9 is the number of blocks 
+13. from pc  'DownLoad (enter)', A stream of Acks indicates
+it is loading the file EForth.hex
+14. When done type 'TALK (enter)' then move the boot0 jumper
+to zero. Hit the reset button one more time and you should
+see the EForth sign on. Used upper case for EFORTH, as it
+is case sensitive.
+15. To return to the PC use the 'esc' key.
+16. to load a Forth source file to the BP, be at the PC and
+type 'loadf105 FileName (enter)' the source file should then
+load. Enjoy.
