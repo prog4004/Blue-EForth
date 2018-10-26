@@ -626,7 +626,7 @@ FBuf value FbufEnd
     Rd2Buf
     FBufZ 0=
     if \ end of file
-      CloseF105 quit
+      CloseF105 TALK quit
     then
   then
   FBufPntr c@
@@ -687,7 +687,7 @@ CREATE LineBuf $100 allot
          Echo? LineBuf LineCnt + c! \ normal Char handling
          1 +to LineCnt
       then
-   again TALK ;
+   again ;
 
 : XEmit
    dup $0A = if drop cr else emit then ;
@@ -831,5 +831,28 @@ create buf2 $2400 allot
         I . I Buf1 + c@ . I Buf2 + c@ . key $1B = if quit then
       then
     loop ;
+
+
+: CALLC ( TARGET HERE - INSTR )
+   - 4 - DUP
+   0C RSHIFT 7FF AND
+   SWAP 0F LSHIFT OR
+   F800F000 OR ;
+
+
+: UNCALL ( ADDR - ADDR' )
+   DUP @ F800F800 AND
+   F800F000 =
+   IF
+    DUP . ."  < "
+    DUP @
+    DUP 15 LSHIFT
+    9 RSHIFT
+    SWAP
+    0F RSHIFT FFE AND OR
+    OVER + 4 + .
+   ELSE
+    DUP . DUP ?
+   THEN 4 + ;
 
 
