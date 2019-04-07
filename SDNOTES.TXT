@@ -1,5 +1,15 @@
 FINDINGS ON THE sd CARD.
 
+This was a 2gig SD with fat32. I was able to read and write data to the SD card. It is still experimental.
+The are 3 basic inits used on these card. See:
+elm-chan.org/docs/mmc/mmc_e.html
+for other init sequences. This is excelent information on SD cards.
+Much of this was borrowed from JeeLabs Forth code on githib. It was mercrisp Forth that I modified to
+eforth.I found his code incorrect for the SPI init. I wrote mine from the STM apnote so should work
+with your STM32f103.
+I've not done much with it yet. I may create a large blank file on the PC and teat it as a number of block files.
+Maybe someone else will expand it to file access.
+
 It has 80H blocks for each cluster
 2000H is the boot
 The first FAT is at 2006H the second copy is at 20F3
